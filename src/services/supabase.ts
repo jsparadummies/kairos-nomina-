@@ -2,14 +2,18 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const STORAGE_CONFIG_KEY = 'kairos_supabase_config_v1';
 
+// Configuración por defecto para que conecte automáticamente en Vercel y móviles
+const DEFAULT_URL = 'https://cfgkwbrndvbhvbmkygtg.supabase.co';
+const DEFAULT_ANON_KEY = 'sb_publishable_74H9Xeo5fNw5j-lAZ8ARCg_d7Qg2HvU';
+
 export interface SupabaseConfig {
   url: string;
   anonKey: string;
 }
 
 export function getSupabaseConfig(): SupabaseConfig {
-  const envUrl = import.meta.env.VITE_SUPABASE_URL || '';
-  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+  const envUrl = import.meta.env.VITE_SUPABASE_URL || DEFAULT_URL;
+  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY || DEFAULT_ANON_KEY;
 
   if (envUrl && envKey) {
     return { url: envUrl, anonKey: envKey };
